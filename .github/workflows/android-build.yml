@@ -38,20 +38,18 @@ jobs:
           test -f /tmp/my-release-key.keystore
           ls -la /tmp/my-release-key.keystore
 
-      - name: Inject signing props
-        run: |
-          cat >> android/gradle.properties << EOF
-          MYAPP_RELEASE_STORE_FILE=/tmp/my-release-key.keystore
-          MYAPP_RELEASE_STORE_PASSWORD=${{ secrets.RELEASE_STORE_PASSWORD }}
-          MYAPP_RELEASE_KEY_ALIAS=${{ secrets.RELEASE_KEY_ALIAS }}
-          MYAPP_RELEASE_KEY_PASSWORD=${{ secrets.RELEASE_KEY_PASSWORD }}
-          EOF
+      - name: Debug gradle props
+        run: cat android/gradle.properties
 
       - name: Build Release APK
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleRelease --stacktrace --no-daemon
+          ./gradlew assembleRelease \
+            -PRELEASE_STORE_FILE=/tmp/my-release-key.keystore \
+            -PRELEASE_STORE_PASSWORD="${{ secrets.RELEASE_STORE_PASSWORD }}" \
+            -PRELEASE_KEY_ALIAS="${{ secrets.RELEASE_KEY_ALIAS }}" \
+            -PRELEASE_KEY_PASSWORD="${{ secrets.RELEASE_KEY_PASSWORD }}"
 
       - name: Upload APK
         if: success()
