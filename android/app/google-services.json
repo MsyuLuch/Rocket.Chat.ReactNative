@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "115198584049",
-    "firebase_url": "https://rocketchat-reactnative-test.firebaseio.com",
-    "project_id": "rocketchat-reactnative-test",
-    "storage_bucket": "rocketchat-reactnative-test.appspot.com"
+    "project_number": "978602117290",
+    "firebase_url": "https://theroom-346b2.firebaseio.com",
+    "project_id": "theroom-346b2",
+    "storage_bucket": "theroom-346b2.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:115198584049:android:a79216ae48935d2c9ab550",
+        "mobilesdk_app_id": "1:978602117290:android:8d0876625571124862e8d3",
         "android_client_info": {
-          "package_name": "chat.rocket.android"
+          "package_name": "chat.rocket.reactnative"
         }
       },
       "oauth_client": [
         {
-          "client_id": "115198584049-ack609b1338b827fta26s9rd2ab1aad5.apps.googleusercontent.com",
+          "client_id": "978602117290-mtkrbeq0g3tfmgn00a80e3ehddb0hcfs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAWwowhAfACHBw3YxmDOXY3QyakgjhJLqc"
+          "current_key": "AIzaSyBIULTwRtoKJCIv2LoNZdzPf_0uvFWlr0g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "115198584049-ack609b1338b827fta26s9rd2ab1aad5.apps.googleusercontent.com",
+              "client_id": "978602117290-mtkrbeq0g3tfmgn00a80e3ehddb0hcfs.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "115198584049-0efgfvm0oh9ap55g7epmqnjm27mq3j4e.apps.googleusercontent.com",
+              "client_id": "978602117290-r8i10n7d4553k0ihk00qceapm2us35o9.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "chat.rocket.reactnative"
+                "bundle_id": "com.entcor.theroom"
               }
             }
           ]
@@ -44,34 +44,34 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:115198584049:android:8be27b1f7c42a2ed",
+        "mobilesdk_app_id": "1:978602117290:android:ade69e1d8798d14d",
         "android_client_info": {
-          "package_name": "chat.rocket.reactnative"
+          "package_name": "com.entcor.theroom"
         }
       },
       "oauth_client": [
         {
-          "client_id": "115198584049-ack609b1338b827fta26s9rd2ab1aad5.apps.googleusercontent.com",
+          "client_id": "978602117290-mtkrbeq0g3tfmgn00a80e3ehddb0hcfs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAWwowhAfACHBw3YxmDOXY3QyakgjhJLqc"
+          "current_key": "AIzaSyBIULTwRtoKJCIv2LoNZdzPf_0uvFWlr0g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "115198584049-ack609b1338b827fta26s9rd2ab1aad5.apps.googleusercontent.com",
+              "client_id": "978602117290-mtkrbeq0g3tfmgn00a80e3ehddb0hcfs.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "115198584049-0efgfvm0oh9ap55g7epmqnjm27mq3j4e.apps.googleusercontent.com",
+              "client_id": "978602117290-r8i10n7d4553k0ihk00qceapm2us35o9.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "chat.rocket.reactnative"
+                "bundle_id": "com.entcor.theroom"
               }
             }
           ]

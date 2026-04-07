@@ -2,8 +2,8 @@ name: Build React Native Android APK
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:  # позволяет запускать вручную
+    branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
   build-android:
@@ -33,24 +33,28 @@ jobs:
 
       - name: Decode Keystore
         run: |
-          echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > android/app/my-release-key.keystore
+          echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > /tmp/my-release-key.keystore
 
       - name: Create keystore.properties
         run: |
-          echo "storeFile=my-release-key.keystore" > android/keystore.properties
-          echo "storePassword=${{ secrets.RELEASE_STORE_PASSWORD }}" >> android/keystore.properties
-          echo "keyAlias=${{ secrets.RELEASE_KEY_ALIAS }}" >> android/keystore.properties
-          echo "keyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}" >> android/keystore.properties
-          mkdir -p android/keystores
-          mv android/keystore.properties android/keystores/
+          cat > android/keystore.properties << EOF
+          storeFile=/tmp/my-release-key.keystore
+          storePassword=${{ secrets.RELEASE_STORE_PASSWORD }}
+          keyAlias=${{ secrets.RELEASE_KEY_ALIAS }}
+          keyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}
+          EOF
+          
+          # Проверяем, что файл создался
+          cat android/keystore.properties
 
       - name: Build Release APK
         run: |
           chmod +x ./android/gradlew
-          cd android && ./gradlew assembleRelease
+          cd android
+          ./gradlew assembleRelease --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: rocketchat-app
+          name: rocketchat-app-release
           path: android/app/build/outputs/apk/release/*.apk
