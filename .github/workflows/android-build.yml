@@ -38,18 +38,17 @@ jobs:
           test -f /tmp/my-release-key.keystore
           ls -la /tmp/my-release-key.keystore
 
-      - name: Debug gradle props
-        run: cat android/gradle.properties
-
       - name: Build Release APK
         run: |
           cd android
           chmod +x gradlew
           ./gradlew assembleRelease \
-            -PRELEASE_STORE_FILE=/tmp/my-release-key.keystore \
-            -PRELEASE_STORE_PASSWORD="${{ secrets.RELEASE_STORE_PASSWORD }}" \
-            -PRELEASE_KEY_ALIAS="${{ secrets.RELEASE_KEY_ALIAS }}" \
-            -PRELEASE_KEY_PASSWORD="${{ secrets.RELEASE_KEY_PASSWORD }}"
+            -PKEYSTORE=/tmp/my-release-key.keystore \
+            -PKEYSTORE_PASSWORD="${{ secrets.RELEASE_STORE_PASSWORD }}" \
+            -PKEY_ALIAS="${{ secrets.RELEASE_KEY_ALIAS }}" \
+            -PKEY_PASSWORD="${{ secrets.RELEASE_KEY_PASSWORD }}" \
+            --stacktrace \
+            --no-daemon
 
       - name: Upload APK
         if: success()
