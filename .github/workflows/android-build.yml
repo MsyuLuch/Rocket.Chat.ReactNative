@@ -2,7 +2,7 @@ name: Build React Native Android APK
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, develop ]
   workflow_dispatch:
 
 jobs:
@@ -23,10 +23,11 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Set up Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'gradle'
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
@@ -34,27 +35,28 @@ jobs:
       - name: Decode Keystore
         run: |
           echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > /tmp/my-release-key.keystore
+          test -f /tmp/my-release-key.keystore
+          ls -la /tmp/my-release-key.keystore
 
-      - name: Create keystore.properties
+      - name: Inject signing props
         run: |
-          cat > android/keystore.properties << EOF
-          storeFile=/tmp/my-release-key.keystore
-          storePassword=${{ secrets.RELEASE_STORE_PASSWORD }}
-          keyAlias=${{ secrets.RELEASE_KEY_ALIAS }}
-          keyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}
+          cat >> android/gradle.properties << EOF
+          MYAPP_RELEASE_STORE_FILE=/tmp/my-release-key.keystore
+          MYAPP_RELEASE_STORE_PASSWORD=${{ secrets.RELEASE_STORE_PASSWORD }}
+          MYAPP_RELEASE_KEY_ALIAS=${{ secrets.RELEASE_KEY_ALIAS }}
+          MYAPP_RELEASE_KEY_PASSWORD=${{ secrets.RELEASE_KEY_PASSWORD }}
           EOF
-          
-          # Проверяем, что файл создался
-          cat android/keystore.properties
 
       - name: Build Release APK
         run: |
-          chmod +x ./android/gradlew
           cd android
-          ./gradlew assembleRelease --stacktrace
+          chmod +x gradlew
+          ./gradlew assembleRelease --stacktrace --no-daemon
 
       - name: Upload APK
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: rocketchat-app-release
-          path: android/app/build/outputs/apk/release/*.apk
+          path: |
+            android/app/build/outputs/apk/**/*.apk
